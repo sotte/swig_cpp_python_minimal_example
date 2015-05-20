@@ -44,3 +44,9 @@ echo
 
 echo Testing test_interface.py:
 python test_interface.py
+
+
+# Resources
+# =========
+# - http://intermediate-and-advanced-software-carpentry.readthedocs.org/en/latest/c++-wrapping.html#wrapping-python-code-with-swig
+# - http://www.swig.org/
