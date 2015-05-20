@@ -1,0 +1,46 @@
+#!/bin/bash
+set -e
+
+# This is a minimal executable README that documents:
+#
+# How to wrap some c++ files with swig for python
+# ===============================================
+#
+# (Note: there is a makefile that basically does the same but this README is
+# more instructive.)
+#
+# To wrap wrap everything in interface.cpp and interface.h you have to do the
+# following:
+#
+# 1) Manually create an interface file: interface.i and include everything you
+#    want to wrap. In this case we wrap everything from interface.h in
+#    interface.i. Quite often I create a simple interface in c++ which wraps
+#    the real logic. Wrapping simple stuff with swig is way easier!
+#
+# 2) Use `swig` to create `interface_wrap.cpp` and `interface.py` from
+#    `interface.i`
+
+echo creating files from interface.i
+swig -c++ -python -o interface_wrap.cpp interface.i
+
+# The following files should exist
+ls interface.py interface_wrap.cpp 
+echo
+
+# 3) Create the shared object file used by python
+#    Use `setup.py`'s build_ext feature to compile the shared object file
+#    `_interface.so` which is used by `interface.py`. Make sure you understand
+#    the content of the `setup.py` file.
+
+echo build_ext
+python setup.py build_ext --inplace
+
+# The following files should exist
+ls _interface.so
+echo
+
+# 4) Test interface.py
+#    Write a file that tests interface.py
+
+echo Testing test_interface.py:
+python test_interface.py

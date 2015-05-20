@@ -1,0 +1,7 @@
+*.pyc
+*.so
+build/
+interface.py
+*_wrap.cpp
+MANIFEST
+dist/
